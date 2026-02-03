@@ -1,12 +1,7 @@
-# Cloudflare Pages configuration
-# Note: This file is used for local development with wrangler
-# Cloudflare Pages deployment is handled automatically by the build output
-
+# Cloudflare Pages configuration for SvelteKit
 name = "ovaldez-forms"
 compatibility_date = "2024-01-01"
+pages_build_output_dir = ".svelte-kit/cloudflare"
 
 [build]
 command = "npm run build"
-
-# Output directory for Cloudflare Pages
-# The SvelteKit adapter outputs to .svelte-kit/cloudflare
