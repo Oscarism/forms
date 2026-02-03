@@ -9,27 +9,43 @@ import { isAuthenticated } from '$lib/auth';
 import { getSheetData, updateSheetCell } from '$lib/google';
 
 export const GET: RequestHandler = async ({ cookies, url, platform }) => {
+	console.log('[Submissions GET] Starting request...');
+	
 	// Check authentication
 	if (!isAuthenticated(cookies)) {
+		console.log('[Submissions GET] Unauthorized - no valid session');
 		return json({ success: false, error: 'Unauthorized' }, { status: 401 });
 	}
+	console.log('[Submissions GET] Authenticated successfully');
 
 	try {
+		// Log platform object availability
+		console.log('[Submissions GET] platform available:', !!platform);
+		console.log('[Submissions GET] platform.env available:', !!platform?.env);
+		
 		const serviceAccountJson =
 			platform?.env?.GOOGLE_SERVICE_ACCOUNT_JSON ||
 			import.meta.env.VITE_GOOGLE_SERVICE_ACCOUNT_JSON;
 		const sheetId =
 			platform?.env?.GOOGLE_SHEET_ID || import.meta.env.VITE_GOOGLE_SHEET_ID;
 
+		// Detailed env var logging
+		console.log('[Submissions GET] GOOGLE_SERVICE_ACCOUNT_JSON present:', !!serviceAccountJson);
+		console.log('[Submissions GET] GOOGLE_SERVICE_ACCOUNT_JSON length:', serviceAccountJson?.length || 0);
+		console.log('[Submissions GET] GOOGLE_SERVICE_ACCOUNT_JSON starts with:', serviceAccountJson?.substring(0, 20) || 'N/A');
+		console.log('[Submissions GET] GOOGLE_SHEET_ID:', sheetId || 'NOT SET');
+
 		if (!serviceAccountJson || !sheetId) {
+			console.error('[Submissions GET] Missing env vars - serviceAccountJson:', !!serviceAccountJson, 'sheetId:', !!sheetId);
 			return json({ success: false, error: 'Service not configured' }, { status: 500 });
 		}
 
 		const statusFilter = url.searchParams.get('status');
 
+		console.log('[Submissions GET] Fetching sheet data...');
 		// Get all data from sheet
 		const data = await getSheetData(serviceAccountJson, sheetId, 'Team Members!A:R');
-		console.log('Sheet data rows:', data.length);
+		console.log('[Submissions GET] Sheet data rows:', data.length);
 
 		// Skip header row and map to objects
 		const submissions = data.slice(1).map((row, index) => ({
@@ -54,7 +70,7 @@ export const GET: RequestHandler = async ({ cookies, url, platform }) => {
 			status: row[17] || 'New'
 		}));
 
-		console.log('Submissions found:', submissions.length);
+		console.log('[Submissions GET] Submissions found:', submissions.length);
 
 		// Filter by status if provided
 		const filtered = statusFilter
@@ -64,9 +80,12 @@ export const GET: RequestHandler = async ({ cookies, url, platform }) => {
 		// Sort by timestamp descending (newest first)
 		filtered.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
+		console.log('[Submissions GET] Returning', filtered.length, 'submissions');
 		return json({ success: true, submissions: filtered });
 	} catch (error) {
-		console.error('Get submissions error:', error);
+		console.error('[Submissions GET] Error:', error);
+		console.error('[Submissions GET] Error message:', error instanceof Error ? error.message : 'Unknown error');
+		console.error('[Submissions GET] Error stack:', error instanceof Error ? error.stack : 'No stack');
 		return json({ success: false, error: 'Failed to fetch submissions' }, { status: 500 });
 	}
 };
