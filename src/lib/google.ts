@@ -1,10 +1,12 @@
 /**
  * Google Sheets & Drive API Helpers
  * Uses service account authentication for server-side operations
+ * Using lightweight individual packages instead of full googleapis
  */
 
-import { google } from 'googleapis';
-import type { drive_v3, sheets_v4 } from 'googleapis';
+import { sheets, type sheets_v4 } from '@googleapis/sheets';
+import { drive, type drive_v3 } from '@googleapis/drive';
+import { GoogleAuth } from 'google-auth-library';
 
 let sheetsClient: sheets_v4.Sheets | null = null;
 let driveClient: drive_v3.Drive | null = null;
@@ -22,7 +24,7 @@ function initGoogleClients(serviceAccountJson: string): {
 
 	const credentials = JSON.parse(serviceAccountJson);
 
-	const auth = new google.auth.GoogleAuth({
+	const auth = new GoogleAuth({
 		credentials,
 		scopes: [
 			'https://www.googleapis.com/auth/spreadsheets',
@@ -30,8 +32,8 @@ function initGoogleClients(serviceAccountJson: string): {
 		]
 	});
 
-	sheetsClient = google.sheets({ version: 'v4', auth });
-	driveClient = google.drive({ version: 'v3', auth });
+	sheetsClient = sheets({ version: 'v4', auth });
+	driveClient = drive({ version: 'v3', auth });
 
 	return { sheets: sheetsClient, drive: driveClient };
 }
@@ -45,9 +47,9 @@ export async function appendToSheet(
 	range: string,
 	values: (string | number)[]
 ): Promise<void> {
-	const { sheets } = initGoogleClients(serviceAccountJson);
+	const { sheets: sheetsApi } = initGoogleClients(serviceAccountJson);
 
-	await sheets.spreadsheets.values.append({
+	await sheetsApi.spreadsheets.values.append({
 		spreadsheetId: sheetId,
 		range,
 		valueInputOption: 'USER_ENTERED',
@@ -65,9 +67,9 @@ export async function getSheetData(
 	sheetId: string,
 	range: string
 ): Promise<string[][]> {
-	const { sheets } = initGoogleClients(serviceAccountJson);
+	const { sheets: sheetsApi } = initGoogleClients(serviceAccountJson);
 
-	const response = await sheets.spreadsheets.values.get({
+	const response = await sheetsApi.spreadsheets.values.get({
 		spreadsheetId: sheetId,
 		range
 	});
@@ -84,9 +86,9 @@ export async function updateSheetCell(
 	range: string,
 	value: string
 ): Promise<void> {
-	const { sheets } = initGoogleClients(serviceAccountJson);
+	const { sheets: sheetsApi } = initGoogleClients(serviceAccountJson);
 
-	await sheets.spreadsheets.values.update({
+	await sheetsApi.spreadsheets.values.update({
 		spreadsheetId: sheetId,
 		range,
 		valueInputOption: 'USER_ENTERED',
@@ -104,9 +106,9 @@ export async function createDriveFolder(
 	parentFolderId: string,
 	folderName: string
 ): Promise<string> {
-	const { drive } = initGoogleClients(serviceAccountJson);
+	const { drive: driveApi } = initGoogleClients(serviceAccountJson);
 
-	const response = await drive.files.create({
+	const response = await driveApi.files.create({
 		requestBody: {
 			name: folderName,
 			mimeType: 'application/vnd.google-apps.folder',
@@ -129,15 +131,15 @@ export async function uploadFileToDrive(
 	mimeType: string,
 	buffer: Buffer
 ): Promise<{ id: string; url: string }> {
-	const { drive } = initGoogleClients(serviceAccountJson);
+	const { drive: driveApi } = initGoogleClients(serviceAccountJson);
 
 	// Create readable stream from buffer
-	const { Readable } = await import('stream');
+	const { Readable } = await import('node:stream');
 	const stream = new Readable();
 	stream.push(buffer);
 	stream.push(null);
 
-	const response = await drive.files.create({
+	const response = await driveApi.files.create({
 		requestBody: {
 			name: filename,
 			parents: [folderId]
@@ -153,7 +155,7 @@ export async function uploadFileToDrive(
 	const fileId = response.data.id || '';
 
 	// Make file publicly viewable
-	await drive.permissions.create({
+	await driveApi.permissions.create({
 		fileId,
 		requestBody: {
 			role: 'reader',
@@ -181,10 +183,10 @@ export async function getOrCreateSubmissionFolder(
 	clientName: string,
 	submitterName: string
 ): Promise<string> {
-	const { drive } = initGoogleClients(serviceAccountJson);
+	const { drive: driveApi } = initGoogleClients(serviceAccountJson);
 
 	// Check if client folder exists
-	const clientFolderQuery = await drive.files.list({
+	const clientFolderQuery = await driveApi.files.list({
 		q: `name='${clientName}' and '${rootFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
 		fields: 'files(id, name)',
 		supportsAllDrives: true,
