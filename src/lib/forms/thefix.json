@@ -1,0 +1,163 @@
+{
+	"id": "thefix",
+	"title": "The Fix — Team Member Info",
+	"description": "Help us build your profile for the website. Fill out what you can, and use the AI buttons to polish your text!",
+	"brandContext": "The Fix Aesthetics + Wellness is a medical aesthetics and wellness center with two locations in El Paso, Texas (East and West). We provide professional aesthetic treatments, wellness services, and personalized care in an approachable, welcoming environment. BRAND POSITIONING: We offer high-quality, professional aesthetic treatments without the intimidation factor. We're approachable experts—credentialed professionals who make you feel comfortable, seen, and guided. We're elevated but not exclusive, professional but not pretentious, expert but not intimidating. CORE VALUES: Trusted expertise (credentialed professionals, FDA-approved tech), Personalized care (no cookie-cutter treatments), Approachable environment (warm, welcoming, plain language), People-first philosophy (caring humans, relationships matter), Transparency (upfront pricing, realistic results, no hidden fees). TONE OF VOICE: Conversational and friendly (not clinical), knowledgeable but accessible (no jargon), warm and encouraging (never judgmental), confident and reassuring, honest and transparent, personable—speak like real people, not a corporate entity.",
+	"sections": [
+		{
+			"id": "basic-info",
+			"title": "Basic Info",
+			"fields": [
+				{
+					"name": "name",
+					"label": "Name",
+					"type": "text",
+					"required": true,
+					"placeholder": "Your full name"
+				},
+				{
+					"name": "email",
+					"label": "Email",
+					"type": "email",
+					"required": true,
+					"placeholder": "your.email@thefixwellness.com"
+				},
+				{
+					"name": "phone_extension",
+					"label": "Phone Extension",
+					"type": "text",
+					"required": false,
+					"placeholder": "e.g., 101"
+				},
+				{
+					"name": "role",
+					"label": "Role / Title",
+					"type": "text",
+					"required": false,
+					"placeholder": "e.g., Aesthetic Nurse Injector"
+				},
+				{
+					"name": "department",
+					"label": "Department",
+					"type": "text",
+					"required": false,
+					"placeholder": "e.g., Aesthetics, Wellness, Front Desk"
+				},
+				{
+					"name": "years_experience",
+					"label": "Years of Experience",
+					"type": "number",
+					"required": false,
+					"placeholder": "e.g., 5"
+				}
+			]
+		},
+		{
+			"id": "about-you",
+			"title": "About You",
+			"fields": [
+				{
+					"name": "specialty",
+					"label": "Specialty",
+					"type": "text",
+					"required": false,
+					"placeholder": "What's your area of expertise?"
+				},
+				{
+					"name": "credentials",
+					"label": "Credentials",
+					"type": "text",
+					"required": false,
+					"placeholder": "Comma-separated, e.g., RN, BSN, CANS"
+				},
+				{
+					"name": "favorite_service",
+					"label": "Favorite Service",
+					"type": "text",
+					"required": false,
+					"placeholder": "What treatment do you love performing?"
+				},
+				{
+					"name": "personal_quote",
+					"label": "Personal Quote",
+					"type": "textarea",
+					"required": false,
+					"placeholder": "A motto or saying that inspires you",
+					"ai": true
+				}
+			]
+		},
+		{
+			"id": "your-bio",
+			"title": "Your Bio",
+			"fields": [
+				{
+					"name": "bio_short",
+					"label": "Short Bio",
+					"type": "textarea",
+					"required": false,
+					"placeholder": "2-3 sentences for cards and quick intros",
+					"hint": "This will appear on team cards throughout the site",
+					"ai": true
+				},
+				{
+					"name": "bio_full",
+					"label": "Full Bio",
+					"type": "textarea",
+					"required": false,
+					"placeholder": "Longer version for your profile page. Share your story!",
+					"hint": "Feel free to share your background, what drew you to this field, and what you love about it",
+					"ai": true
+				}
+			]
+		},
+		{
+			"id": "photos",
+			"title": "Photos",
+			"fields": [
+				{
+					"name": "profile_photo",
+					"label": "Profile Photo",
+					"type": "file",
+					"required": true,
+					"accept": "image/*",
+					"maxSize": 20,
+					"hint": "A professional headshot works great!"
+				},
+				{
+					"name": "additional_images",
+					"label": "Additional Images",
+					"type": "files",
+					"required": false,
+					"accept": "image/*",
+					"maxSize": 20,
+					"hint": "Before/after results, candid moments, anything you'd like to share"
+				}
+			]
+		},
+		{
+			"id": "anything-else",
+			"title": "Anything Else",
+			"fields": [
+				{
+					"name": "anything_else",
+					"label": "Share More",
+					"type": "textarea",
+					"required": false,
+					"placeholder": "Hobbies, fun facts, what you love about your work...",
+					"hint": "This is your space to let your personality shine!",
+					"ai": true
+				},
+				{
+					"name": "extra_images",
+					"label": "Extra Images",
+					"type": "files",
+					"required": false,
+					"accept": "image/*",
+					"maxSize": 20,
+					"hint": "Any additional photos you'd like to include"
+				}
+			]
+		}
+	]
+}

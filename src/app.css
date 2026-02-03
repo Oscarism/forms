@@ -1,0 +1,741 @@
+/* ==========================================================================
+   Oscar Valdez - Team Portal Styles
+   All orange text, cream background, no cards, minimal design
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Font Faces
+   -------------------------------------------------------------------------- */
+@font-face {
+	font-family: 'Neuemontreal';
+	src: url('/fonts/NeueMontreal-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Neuemontreal';
+	src: url('/fonts/NeueMontreal-Medium.otf') format('opentype');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Neuemontreal';
+	src: url('/fonts/NeueMontreal-Bold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Subset Gtamerica Cmbd';
+	src: url('/fonts/Subset-GTAmerica-CmBd.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   CSS Variables
+   -------------------------------------------------------------------------- */
+:root {
+	--orange: #fe3e1a;
+	--orange-hover: #fea31a;
+	--cream: #f3efe8;
+	--font-primary: 'Neuemontreal', sans-serif;
+	--font-display: 'Subset Gtamerica Cmbd', sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+}
+
+body {
+	font-family: var(--font-primary);
+	font-size: 1rem;
+	line-height: 1.5;
+	color: var(--orange);
+	background-color: var(--cream);
+	min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   Typography - ALL ORANGE
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6, p, span, label, a {
+	color: var(--orange);
+}
+
+h1, h2, h3, h4 {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.1;
+	text-transform: uppercase;
+}
+
+h1 { font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: -2px; }
+h2 { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -1px; }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h4 { font-size: 1.25rem; }
+
+a {
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+a:hover {
+	color: var(--orange-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Navigation - TRANSPARENT, OVERLAPPING
+   -------------------------------------------------------------------------- */
+.nav-wrap {
+	z-index: 2000;
+	padding: 12px 48px;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1728px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	position: fixed;
+	inset: 0% 0% auto;
+	background-color: transparent;
+}
+
+.logo-link {
+	gap: 16px;
+	align-items: center;
+	text-decoration: none;
+	display: flex;
+	color: var(--orange);
+	transition: color 0.2s ease;
+}
+
+.logo-link:hover {
+	color: var(--orange-hover);
+}
+
+.logo-link svg {
+	width: 50px;
+	height: 50px;
+}
+
+.logo-text {
+	font-family: var(--font-primary);
+	font-size: 26px;
+	font-weight: 500;
+	line-height: 1;
+}
+
+@media (max-width: 479px) {
+	.nav-wrap { padding: 12px 16px; }
+	.logo-text { font-size: 20px; }
+	.logo-link svg { width: 40px; height: 40px; }
+}
+
+/* --------------------------------------------------------------------------
+   Container
+   -------------------------------------------------------------------------- */
+.container {
+	width: 100%;
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+.container-wide {
+	max-width: 1200px;
+}
+
+/* --------------------------------------------------------------------------
+   Form Page Layout
+   -------------------------------------------------------------------------- */
+.form-page {
+	min-height: 100vh;
+	padding-top: 120px;
+	padding-bottom: 96px;
+}
+
+.form-header {
+	padding: 48px 0 64px;
+	text-align: left;
+}
+
+.form-header h1 {
+	font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.form-description {
+	max-width: 600px;
+	margin-top: 16px;
+	font-size: 1.125rem;
+	line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Form Elements - OUTLINED, SQUARED, ORANGE ONLY
+   -------------------------------------------------------------------------- */
+label {
+	display: block;
+	font-size: 0.875rem;
+	font-weight: 500;
+	margin-bottom: 8px;
+}
+
+.label-optional {
+	font-weight: 400;
+	opacity: 0.6;
+	margin-left: 4px;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='tel'],
+textarea,
+select {
+	width: 100%;
+	padding: 16px;
+	font-family: var(--font-primary);
+	font-size: 1rem;
+	color: var(--orange);
+	background-color: transparent;
+	border: 1px solid var(--orange);
+	border-radius: 0;
+	transition: border-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+	outline: none;
+	border-color: var(--orange-hover);
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--orange);
+	opacity: 0.5;
+}
+
+textarea {
+	min-height: 120px;
+	resize: vertical;
+}
+
+/* --------------------------------------------------------------------------
+   Form Sections
+   -------------------------------------------------------------------------- */
+.form-section {
+	margin-bottom: 64px;
+}
+
+.form-section-title {
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 24px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--orange);
+	font-family: var(--font-primary);
+}
+
+.form-group {
+	margin-bottom: 24px;
+}
+
+.form-hint {
+	font-size: 0.75rem;
+	opacity: 0.7;
+	margin-top: 4px;
+}
+
+.form-error {
+	font-size: 0.75rem;
+	margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons - ALL OUTLINED
+   -------------------------------------------------------------------------- */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 12px 28px;
+	font-family: var(--font-primary);
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-decoration: none;
+	border: 1px solid var(--orange);
+	border-radius: 100px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	background-color: transparent;
+	color: var(--orange);
+}
+
+.btn:hover {
+	border-color: var(--orange-hover);
+	color: var(--orange-hover);
+}
+
+.btn-primary {
+	background-color: transparent;
+	color: var(--orange);
+	border-color: var(--orange);
+}
+
+.btn-primary:hover {
+	background-color: rgba(254, 62, 26, 0.05);
+	border-color: var(--orange-hover);
+	color: var(--orange-hover);
+}
+
+.btn-secondary {
+	background-color: transparent;
+}
+
+.btn-small {
+	padding: 8px 16px;
+	font-size: 0.75rem;
+}
+
+.btn-ai {
+	padding: 6px 14px;
+	font-size: 0.75rem;
+}
+
+.btn:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   File Upload - OUTLINED, SQUARED
+   -------------------------------------------------------------------------- */
+.upload-zone {
+	border: 1px solid var(--orange);
+	border-radius: 0;
+	padding: 48px;
+	text-align: center;
+	cursor: pointer;
+	transition: border-color 0.2s ease;
+	background-color: transparent;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+	border-color: var(--orange-hover);
+}
+
+.upload-zone-text {
+	font-size: 0.875rem;
+}
+
+.upload-zone-text strong {
+	font-weight: 500;
+}
+
+/* No icon - just text */
+.upload-zone-icon {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Preview Images
+   -------------------------------------------------------------------------- */
+.preview-images {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-top: 16px;
+}
+
+.preview-image {
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border: 1px solid var(--orange);
+	overflow: hidden;
+}
+
+.preview-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.preview-image-remove {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 24px;
+	height: 24px;
+	background-color: var(--orange);
+	color: var(--cream);
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   AI Side Panel (replaces modal)
+   -------------------------------------------------------------------------- */
+.ai-panel-overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+}
+
+.ai-panel {
+	position: fixed;
+	top: 80px;
+	right: 24px;
+	bottom: 24px;
+	width: 320px;
+	max-width: calc(100vw - 48px);
+	background-color: var(--cream);
+	border: 1px solid var(--orange);
+	z-index: 1001;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.ai-panel-header {
+	padding: 16px;
+	border-bottom: 1px solid var(--orange);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.ai-panel-header h4 {
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-family: var(--font-primary);
+}
+
+.ai-panel-body {
+	padding: 16px;
+	flex: 1;
+	overflow-y: auto;
+}
+
+.ai-panel-footer {
+	padding: 16px;
+	border-top: 1px solid var(--orange);
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}
+
+.ai-panel-footer .btn {
+	flex: 1;
+}
+
+.ai-presets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.ai-presets .btn {
+	flex: 1 1 auto;
+	min-width: calc(50% - 4px);
+}
+
+@media (max-width: 600px) {
+	.ai-panel {
+		top: auto;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		max-width: 100%;
+		max-height: 60vh;
+	}
+}
+
+/* Keep modal styles for admin modals */
+.modal-overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(243, 239, 232, 0.95);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	padding: 24px;
+}
+
+.modal {
+	background-color: var(--cream);
+	border: 1px solid var(--orange);
+	width: 100%;
+	max-width: 500px;
+	max-height: 80vh;
+	overflow-y: auto;
+}
+
+.modal-header {
+	padding: 24px;
+	border-bottom: 1px solid var(--orange);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal-body {
+	padding: 24px;
+}
+
+.modal-footer {
+	padding: 24px;
+	border-top: 1px solid var(--orange);
+	display: flex;
+	justify-content: flex-end;
+	gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Success Screen
+   -------------------------------------------------------------------------- */
+.success-screen {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 48px;
+}
+
+/* No icon */
+.success-icon {
+	display: none;
+}
+
+.success-message {
+	max-width: 480px;
+}
+
+.success-note {
+	margin-top: 32px;
+	font-size: 0.875rem;
+	opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   Admin Dashboard
+   -------------------------------------------------------------------------- */
+.dashboard {
+	padding-top: 100px;
+}
+
+.dashboard-header {
+	padding: 32px 0;
+	border-bottom: 1px solid var(--orange);
+	margin-bottom: 32px;
+}
+
+.client-routes {
+	margin-bottom: 48px;
+	padding: 24px;
+	border: 1px solid var(--orange);
+}
+
+.client-routes h3 {
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 16px;
+	font-family: var(--font-primary);
+}
+
+.client-routes-list {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.client-routes-list a {
+	font-size: 0.875rem;
+}
+
+.dashboard-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 24px;
+	margin-bottom: 48px;
+}
+
+.stat-card {
+	background-color: transparent;
+	padding: 24px;
+	border: 1px solid var(--orange);
+}
+
+.stat-value {
+	font-size: 2rem;
+	font-weight: 700;
+	font-family: var(--font-display);
+}
+
+.stat-label {
+	font-size: 0.875rem;
+	opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   Table
+   -------------------------------------------------------------------------- */
+.table-container {
+	overflow-x: auto;
+	border: 1px solid var(--orange);
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 16px;
+	text-align: left;
+	border-bottom: 1px solid var(--orange);
+}
+
+th {
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	opacity: 0.7;
+}
+
+tr:hover {
+	background-color: rgba(254, 62, 26, 0.02);
+}
+
+tr:last-child td {
+	border-bottom: none;
+}
+
+/* --------------------------------------------------------------------------
+   Status Badge
+   -------------------------------------------------------------------------- */
+.status-badge {
+	display: inline-block;
+	padding: 4px 8px;
+	font-size: 0.75rem;
+	font-weight: 500;
+	border: 1px solid var(--orange);
+}
+
+.status-new { opacity: 1; }
+.status-reviewed { opacity: 0.7; }
+.status-added { opacity: 0.5; }
+
+/* --------------------------------------------------------------------------
+   Login Page
+   -------------------------------------------------------------------------- */
+.login-page {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.login-card {
+	width: 100%;
+	max-width: 400px;
+	text-align: center;
+	padding: 48px;
+	border: 1px solid var(--orange);
+}
+
+.login-card h2 {
+	margin-bottom: 8px;
+}
+
+.login-card form {
+	text-align: left;
+	margin-top: 32px;
+}
+
+.btn-full {
+	width: 100%;
+	margin-top: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Loading
+   -------------------------------------------------------------------------- */
+.loading {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid var(--cream);
+	border-top-color: var(--orange);
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+.text-center { text-align: center; }
+.text-muted { opacity: 0.7; }
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.mb-s { margin-bottom: 8px; }
+.mb-m { margin-bottom: 16px; }
+.mb-l { margin-bottom: 24px; }
+.mt-s { margin-top: 8px; }
+.mt-m { margin-top: 16px; }
+.mt-l { margin-top: 24px; }
