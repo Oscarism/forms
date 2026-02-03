@@ -27,9 +27,6 @@
 		"wrangler": "^3.0.0"
 	},
 	"dependencies": {
-		"@anthropic-ai/sdk": "^0.30.0",
-		"@googleapis/drive": "^20.0.1",
-		"@googleapis/sheets": "^13.0.1",
-		"google-auth-library": "^10.5.0"
+		"@anthropic-ai/sdk": "^0.30.0"
 	}
 }
