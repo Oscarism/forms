@@ -238,10 +238,12 @@ Extra Images: ${submission.extraImagesUrls}`;
 	<div
 		class="modal-overlay"
 		onclick={() => (selectedSubmission = null)}
+		onkeydown={(e) => e.key === 'Escape' && (selectedSubmission = null)}
 		role="dialog"
 		aria-modal="true"
+		tabindex="-1"
 	>
-		<div class="modal modal-large" onclick={(e) => e.stopPropagation()}>
+		<div class="modal modal-large" role="document" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
 			<div class="modal-header">
 				<h4>{selectedSubmission.name}</h4>
 				<button class="btn-close" onclick={() => (selectedSubmission = null)}>×</button>

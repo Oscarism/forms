@@ -456,6 +456,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-large" disabled={isSubmitting}>
 						{isSubmitting ? 'Submitting...' : 'Submit'}
+					</button>
 				</div>
 			</form>
 		</main>
@@ -464,7 +465,7 @@
 
 <!-- AI Side Panel -->
 {#if showAiModal}
-	<div class="ai-panel-overlay" onclick={closeAiModal}></div>
+	<div class="ai-panel-overlay" role="button" tabindex="-1" onclick={closeAiModal} onkeydown={(e) => e.key === 'Escape' && closeAiModal()}></div>
 	<div class="ai-panel" role="dialog" aria-modal="true">
 		<div class="ai-panel-header">
 			<h4>Ask AI</h4>
